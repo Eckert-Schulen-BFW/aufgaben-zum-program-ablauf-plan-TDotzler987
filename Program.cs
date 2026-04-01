@@ -8,16 +8,16 @@
 // AUFGABE 1 – Beantworte folgende Fragen hier als Kommentar:
 //
 // Frage 1: Wie viele Entscheidungsknoten (Rauten) hat der PAP?
-// Antwort: 
+// Antwort: 6
 //
 // Frage 2: Unter welchen Bedingungen endet das Programm frühzeitig?
-// Antwort: 
+// Antwort: fehlerhafter Eingabe
 //
 // Frage 3: Warum wird TryParse statt Convert.ToDouble() verwendet?
-// Antwort: 
+// Antwort: um bei fehlerhafter Eingabe keinen Fehler ausgeworfen zu bekommen
 //
 // Frage 4: Welchen Datentyp sollen gewicht und groesse haben, und warum?
-// Antwort: 
+// Antwort: wird in double formatiert und danach mit Diesem weitergerechnet
 //
 // ============================================================
 
@@ -28,6 +28,59 @@
 // ── Schritt 1: Programmtitel ausgeben ───────────────────────
 // Tipp: Nutze Console.WriteLine() für die Titelbox.
 // TODO: Ausgabe der Titelzeile (wie im Beispiel in der README)
+using System.ComponentModel.Design;
+using System.Runtime.Intrinsics.X86;
+
+Console.WriteLine("╔══════════════════════════════════╗");
+Console.WriteLine("║        BMI - Rechner v1.0        ║");
+Console.WriteLine("╚══════════════════════════════════╝");
+Console.WriteLine();
+Console.WriteLine("Bitte gib deinen Namen ein: ");
+string name = Console.ReadLine();
+Console.WriteLine("Bitte gib dein Gewicht in kg ein: ");
+string weight = Console.ReadLine(); 
+double weightnum;
+bool eingabeweight = double.TryParse(weight, out weightnum);
+//   true/false     = Datentyp.TryParse(string welchen, out wohin wir das konvertiere schreiben);
+//   true   => wenn konvertierung erfolgreich!
+//   false  => wenn konvertierung nicht erfolgreich!
+if (eingabeweight)
+{
+    Console.WriteLine("Bitte geben Sie Ihre Größe in m ein: ");
+    string size = Console.ReadLine();
+    double sizenum;
+    bool eingabesize = double.TryParse(size, out sizenum);
+    if (eingabesize)
+    {
+        if (sizenum > 0)
+        {
+            double BMI = (weightnum / sizenum * sizenum);
+            string kategorie = "";
+            if (BMI < 18.5)
+                kategorie = "Untergewicht";
+            else if (BMI < 25)
+                kategorie = "Normalgewicht";
+            else if (BMI < 30)
+                kategorie = "Übergewicht";
+            else
+                kategorie = "starkes Übergewicht";
+
+        
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("BMI: " + BMI);
+        Console.WriteLine("Kategorie: " + kategorie);
+        }
+
+    }
+
+} 
+else
+{
+    Console.WriteLine("Fehler");
+    
+}return;
+
+
 
 
 // ── Schritt 2: Eingabe – Name ────────────────────────────────
